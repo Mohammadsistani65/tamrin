@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a4f5a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>ماشین مشتری | کارگروه اصفهان</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vazirmatn@33.0.3/Vazirmatn-font-face.css">
+<style>
+:root{--tq:#0f7c86;--tq2:#0a4f5a;--tq3:#e2f3f2;--gold:#c79a3b;--gold2:#f3e3b8;--cream:#fbf6ea;--ink:#1d2b30;--mut:#697a7f;--line:#e7dfcb;--ok:#1f8f5f;--warn:#c27a12;--bad:#c0392b}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%}
+body{font-family:'Vazirmatn','Vazir','Tahoma','Segoe UI',sans-serif;background:var(--cream);color:var(--ink);direction:rtl;line-height:1.75;font-size:15px}
+button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+#art{position:fixed;inset:0;z-index:0;display:none}
+#art svg{width:100%;height:100%;display:block}
+body.art #art{display:block}
+body.art{background:#0c2347}
+#app{position:relative;z-index:1;max-width:560px;margin:0 auto;min-height:100vh;padding-bottom:70px}
+.login{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:18px 16px 26px}
+.login .ttl{position:absolute;top:34px;left:0;right:0;text-align:center;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.45)}
+.ttl small{display:block;letter-spacing:.5px;opacity:.9;font-size:13px}
+.ttl h1{margin:2px 0 0;font-size:34px;font-weight:800}
+.ttl .sub{font-size:14px;margin-top:4px;color:#f3e3b8}
+.glass{background:rgba(251,246,234,.93);border:1px solid rgba(199,154,59,.55);border-radius:20px;padding:18px 16px;backdrop-filter:blur(6px);box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.lbl{display:block;font-size:13px;color:var(--tq2);font-weight:600;margin:10px 0 4px}
+.inp,select.inp,textarea.inp{width:100%;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;outline:none;transition:.15s}
+.inp:focus{border-color:var(--tq);box-shadow:0 0 0 3px rgba(15,124,134,.15)}
+textarea.inp{min-height:84px;resize:vertical}
+.ltr{direction:ltr;text-align:center;letter-spacing:6px}
+.btn{border:0;border-radius:12px;padding:11px 16px;font-weight:700;cursor:pointer;background:#fff;border:1.5px solid var(--tq);color:var(--tq2)}
+.btn.pri{background:linear-gradient(135deg,var(--tq),var(--tq2));color:#fff;border-color:transparent}
+.btn.gold{background:var(--gold);color:#fff;border-color:transparent}
+.btn.block{display:block;width:100%;margin-top:14px}
+.btn.sm{padding:6px 12px;font-size:13px;border-radius:10px}
+.btn.bad{border-color:var(--bad);color:var(--bad)}
+.err{color:var(--bad);font-size:13px;margin-top:8px;min-height:18px}
+.note{font-size:12.5px;color:var(--mut);margin-top:8px}
+.links{display:flex;justify-content:center;gap:16px;margin-top:12px;font-size:12.5px}
+.links a{color:#f3e3b8;cursor:pointer;text-decoration:underline}
+.credit{text-align:center;font-size:11.5px;color:#d9d2bd;margin-top:10px}
+.top{background:linear-gradient(135deg,var(--tq2),var(--tq));color:#fff;padding:14px 16px 16px;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:5}
+.top .r1{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.top h2{margin:0;font-size:17px}
+.top .sm{font-size:12.5px;opacity:.9}
+.top .btn{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.45)}
+.wrap{padding:14px 14px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 1px 6px rgba(60,50,20,.05)}
+.card h3{margin:0 0 8px;font-size:15.5px;color:var(--tq2)}
+.sec{font-weight:800;color:var(--tq2);margin:18px 2px 8px;font-size:15px;display:flex;align-items:center;gap:8px}
+.sec:before{content:"";width:6px;height:18px;background:var(--gold);border-radius:3px}
+.rings{display:flex;gap:10px}
+.ringbox{flex:1;text-align:center;background:var(--tq3);border-radius:14px;padding:10px 4px}
+.ringbox svg{width:72px;height:72px}
+.ringbox .t{font-size:12.5px;color:var(--tq2);font-weight:700}
+.ringbox .n{font-size:11.5px;color:var(--mut)}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.stat{background:#faf5e6;border-radius:12px;padding:8px 10px;font-size:12.5px;color:var(--mut)}
+.stat b{display:block;font-size:17px;color:var(--ink)}
+.its{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.it{display:flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:9px 10px;cursor:pointer;text-align:right;font-weight:600;font-size:13.5px}
+.it .ic{width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:13px;background:#eee;color:#888;flex:none}
+.st-part .ic{background:#fdeccb;color:var(--warn)}
+.st-done{border-color:#9bd6c2}.st-done .ic{background:#d9f2e9;color:var(--ok)}
+.st-ok{border-color:var(--ok);background:#effaf5}.st-ok .ic{background:var(--ok);color:#fff}
+.st-fix{border-color:var(--bad);background:#fdf0ee}.st-fix .ic{background:var(--bad);color:#fff}
+.dl{background:#fff6dd;border:1px solid #ecd48b;color:#7a5a10;border-radius:12px;padding:8px 12px;font-size:13px;margin-bottom:12px}
+.hint{background:#f1f8f8;border-right:4px solid var(--tq);border-radius:10px;padding:10px 12px;font-size:13.5px;margin-bottom:12px}
+.hint ul{margin:4px 0 0;padding-right:18px}
+.help{font-size:12.5px;color:var(--mut);background:#faf5e6;border-radius:8px;padding:6px 10px;margin:2px 0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:18px;padding:5px 12px;cursor:pointer;font-size:13px}
+.chip.on{background:var(--tq);border-color:var(--tq);color:#fff}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:6px 0;cursor:pointer}
+.chk input{width:20px;height:20px;margin-top:3px;accent-color:var(--tq);flex:none}
+.cp{border:1.5px solid var(--line);border-radius:12px;padding:8px 10px;margin-bottom:8px;background:#fffdf7}
+.cp.on{border-color:#9bd6c2;background:#f2fbf7}
+.cmp{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--line);padding:10px 14px;display:flex;gap:10px;align-items:center;justify-content:space-between;z-index:4}
+.cmp .s{font-size:13px;font-weight:700}
+.s.ok{color:var(--ok)}.s.no{color:var(--warn)}
+.cm{border-radius:10px;padding:8px 12px;font-size:13.5px;margin-bottom:8px}
+.cm.a{background:#fdf0ee;border:1px solid #f1c3bc}.cm.s2{background:#eef5ff;border:1px solid #c5d9f5}
+.badge{display:inline-block;border-radius:10px;padding:1px 9px;font-size:12px;font-weight:700}
+.b-ok{background:#d9f2e9;color:var(--ok)}.b-fix{background:#fde0dc;color:var(--bad)}.b-done{background:#e3f1f6;color:var(--tq2)}.b-no{background:#eee;color:#888}
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:7px 6px;text-align:center;white-space:nowrap}
+.tbl th{background:var(--tq3);color:var(--tq2);position:sticky;top:0}
+.tbl td:first-child,.tbl th:first-child{text-align:right}
+.tbl tr.rw{cursor:pointer}.tbl tr.rw:hover{background:#faf5e6}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff}
+.bar{height:7px;border-radius:5px;background:#eee;overflow:hidden;min-width:50px}.bar i{display:block;height:100%;background:var(--tq)}
+.tabs{display:flex;gap:6px;margin-bottom:10px}
+.tabs .btn{flex:1;padding:8px 4px;font-size:13px}.tabs .btn.on{background:var(--tq);color:#fff}
+.kv{font-size:13.5px;border-bottom:1px dashed var(--line);padding:5px 0}
+.kv b{color:var(--tq2)}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1d2b30;color:#fff;border-radius:20px;padding:8px 18px;font-size:13px;z-index:20;opacity:0;transition:.25s;pointer-events:none}
+.toast.show{opacity:1}
+.demo{background:#fff1c7;color:#6b4d00;text-align:center;font-size:12px;padding:4px 8px}
+.foot{text-align:center;font-size:11.5px;color:var(--mut);margin:20px 0}
+.row2{display:flex;gap:8px;align-items:center}
+.row2>*{flex:1}
+.flex{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+</style>
+</head>
+<body class="art">
+<div id="art"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c2347"/>
+      <stop offset="0.42" stop-color="#35669a"/>
+      <stop offset="0.74" stop-color="#e3a86c"/>
+      <stop offset="1" stop-color="#f7dba3"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffd58a" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#ffd58a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="dome" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0a6a75"/>
+      <stop offset="0.45" stop-color="#34cbc4"/>
+      <stop offset="1" stop-color="#0b5a66"/>
+    </linearGradient>
+    <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ecd0a2"/>
+      <stop offset="1" stop-color="#c79c64"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3b8db0"/>
+      <stop offset="1" stop-color="#123c5a"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d9b680"/>
+      <stop offset="1" stop-color="#7a5836"/>
+    </linearGradient>
+    <linearGradient id="shade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#06182c" stop-opacity="0.35"/>
+      <stop offset="0.35" stop-color="#06182c" stop-opacity="0"/>
+      <stop offset="0.6" stop-color="#06222e" stop-opacity="0.1"/>
+      <stop offset="1" stop-color="#04202a" stop-opacity="0.72"/>
+    </linearGradient>
+    <pattern id="tile" width="12" height="12" patternUnits="userSpaceOnUse">
+      <rect width="12" height="12" fill="#0d6c7b"/>
+      <path d="M6 0 L12 6 L6 12 L0 6 Z" fill="none" stroke="#e2bf63" stroke-width="0.8" opacity="0.7"/>
+      <circle cx="6" cy="6" r="1.4" fill="#e2bf63" opacity="0.8"/>
+      <path d="M0 0 L12 12 M12 0 L0 12" stroke="#37c1c0" stroke-width="0.4" opacity="0.5"/>
+    </pattern>
+    <pattern id="arch" width="28" height="50" patternUnits="userSpaceOnUse">
+      <rect width="28" height="50" fill="url(#stone)"/>
+      <path d="M5 50 L5 24 Q14 6 23 24 L23 50 Z" fill="#6b4a2c" opacity="0.8"/>
+      <path d="M9 50 L9 28 Q14 18 19 28 L19 50 Z" fill="#f4c565" opacity="0.38"/>
+    </pattern>
+    <clipPath id="pondclip"><rect x="36" y="664" width="328" height="104" rx="10"/></clipPath>
+
+    <g id="facade">
+      <path d="M126 402 C126 330 160 292 200 258 C240 292 274 330 274 402 Z" fill="url(#dome)"/>
+      <path d="M200 258 C186 296 164 346 150 402 M200 258 C196 300 188 352 184 402 M200 258 C204 300 212 352 216 402 M200 258 C214 296 236 346 250 402" stroke="#07474f" stroke-width="0.9" fill="none" opacity="0.5"/>
+      <path d="M200 262 C178 292 150 332 140 400 L156 400 C160 340 178 296 200 262 Z" fill="#ffffff" opacity="0.12"/>
+      <path d="M126 402 Q200 394 274 402" stroke="#e2bf63" stroke-width="2" fill="none"/>
+      <path d="M200 258 L200 240" stroke="#e2bf63" stroke-width="2"/>
+      <circle cx="200" cy="238" r="3" fill="#f0cf72"/>
+      <rect x="142" y="400" width="116" height="36" fill="url(#tile)"/>
+      <path d="M158 436 L158 420 Q164 410 170 420 L170 436 Z M188 436 L188 420 Q194 410 200 420 L200 436 Z M230 436 L230 420 Q236 410 242 420 L242 436 Z" fill="#0a2f40" opacity="0.85"/>
+
+      <rect x="128" y="436" width="144" height="204" fill="url(#tile)"/>
+      <rect x="128" y="436" width="144" height="204" fill="none" stroke="#e2bf63" stroke-width="1.6"/>
+      <rect x="128" y="436" width="144" height="9" fill="#e2bf63" opacity="0.85"/>
+      <path d="M150 640 L150 524 Q150 478 200 452 Q250 478 250 524 L250 640 Z" fill="#0a2f40"/>
+      <path d="M150 640 L150 524 Q150 478 200 452 Q250 478 250 524 L250 640" fill="none" stroke="#e2bf63" stroke-width="1.6"/>
+      <path d="M158 524 Q168 506 178 524 M178 524 Q188 506 198 524 M198 524 Q208 506 218 524 M218 524 Q228 506 238 524" stroke="#e2bf63" stroke-width="1" fill="none" opacity="0.7"/>
+      <path d="M168 506 Q178 490 188 506 M188 506 Q198 490 208 506 M208 506 Q218 490 228 506" stroke="#37c1c0" stroke-width="1" fill="none" opacity="0.7"/>
+      <path d="M180 490 Q190 476 200 490 M200 490 Q210 476 220 490" stroke="#e2bf63" stroke-width="1" fill="none" opacity="0.7"/>
+      <path d="M180 640 L180 590 Q200 562 220 590 L220 640 Z" fill="#f7c968" opacity="0.92"/>
+      <path d="M186 640 L186 596 Q200 576 214 596 L214 640 Z" fill="#fff0c2" opacity="0.7"/>
+
+      <rect x="112" y="352" width="13" height="288" fill="url(#tile)"/>
+      <rect x="275" y="352" width="13" height="288" fill="url(#tile)"/>
+      <rect x="107" y="394" width="23" height="5" fill="#e2bf63"/>
+      <rect x="270" y="394" width="23" height="5" fill="#e2bf63"/>
+      <rect x="109" y="364" width="19" height="4" fill="#e2bf63"/>
+      <rect x="272" y="364" width="19" height="4" fill="#e2bf63"/>
+      <path d="M110 352 Q118.5 330 127 352 Z M273 352 Q281.5 330 290 352 Z" fill="#2dbfba"/>
+      <path d="M118.5 332 L118.5 318 M281.5 332 L281.5 318" stroke="#e2bf63" stroke-width="1.6"/>
+
+      <rect x="0" y="540" width="108" height="8" fill="#b88a55"/>
+      <rect x="292" y="540" width="108" height="8" fill="#b88a55"/>
+      <rect x="0" y="548" width="108" height="46" fill="url(#arch)"/>
+      <rect x="292" y="548" width="108" height="46" fill="url(#arch)"/>
+      <rect x="0" y="596" width="108" height="44" fill="url(#arch)"/>
+      <rect x="292" y="596" width="108" height="44" fill="url(#arch)"/>
+      <rect x="0" y="592" width="108" height="4" fill="#b88a55"/>
+      <rect x="292" y="592" width="108" height="4" fill="#b88a55"/>
+      <circle cx="40" cy="545" r="3" fill="#ffd98a"/>
+      <circle cx="82" cy="545" r="3" fill="#ffd98a"/>
+      <circle cx="318" cy="545" r="3" fill="#ffd98a"/>
+      <circle cx="360" cy="545" r="3" fill="#ffd98a"/>
+    </g>
+  </defs>
+
+  <rect width="400" height="660" fill="url(#sky)"/>
+  <g fill="#ffffff">
+    <circle cx="48" cy="60" r="1.3" opacity="0.8"/><circle cx="110" cy="34" r="1" opacity="0.7"/>
+    <circle cx="170" cy="86" r="1.2" opacity="0.6"/><circle cx="262" cy="46" r="1.4" opacity="0.8"/>
+    <circle cx="332" cy="92" r="1" opacity="0.7"/><circle cx="372" cy="40" r="1.3" opacity="0.8"/>
+    <circle cx="300" cy="148" r="1" opacity="0.5"/><circle cx="72" cy="150" r="1" opacity="0.5"/>
+  </g>
+  <circle cx="338" cy="104" r="15" fill="#fbf2d4" opacity="0.92"/>
+  <circle cx="345" cy="99" r="13" fill="#2c5683"/>
+  <circle cx="200" cy="470" r="250" fill="url(#glow)"/>
+
+  <use xlink:href="#facade"/>
+
+  <rect y="640" width="400" height="160" fill="url(#ground)"/>
+  <rect x="30" y="658" width="340" height="116" rx="14" fill="#f0dcb4" opacity="0.9"/>
+  <rect x="36" y="664" width="328" height="104" rx="10" fill="url(#water)"/>
+  <g clip-path="url(#pondclip)">
+    <use xlink:href="#facade" transform="translate(0,1300) scale(1,-1)" opacity="0.5"/>
+    <g stroke="#cfeaf5" stroke-width="0.8" fill="none" opacity="0.4">
+      <path d="M46 676 Q80 672 114 676 T182 676 T250 676 T318 676 T354 676"/>
+      <path d="M52 690 Q86 686 120 690 T188 690 T256 690 T324 690"/>
+      <path d="M44 706 Q78 702 112 706 T180 706 T248 706 T316 706 T356 706"/>
+      <path d="M58 724 Q92 720 126 724 T194 724 T262 724 T330 724"/>
+      <path d="M46 742 Q80 738 114 742 T182 742 T250 742 T318 742 T354 742"/>
+      <path d="M60 758 Q94 754 128 758 T196 758 T264 758 T332 758"/>
+    </g>
+  </g>
+  <g stroke="#e8f6fb" stroke-width="1.4" fill="none" opacity="0.85" stroke-linecap="round">
+    <path d="M200 716 C200 696 196 688 190 696"/>
+    <path d="M200 716 C200 696 204 688 210 696"/>
+    <path d="M200 716 L200 690"/>
+    <path d="M122 722 C122 708 119 703 115 709 M122 722 C122 708 125 703 129 709"/>
+    <path d="M278 722 C278 708 275 703 271 709 M278 722 C278 708 281 703 285 709"/>
+  </g>
+  <rect width="400" height="800" fill="url(#shade)"/>
+</svg>
+</div>
+<div id="app"></div>
+<div id="toast" class="toast"></div>
+<script>
+const CONFIG={
+  SUPABASE_URL:'',
+  SUPABASE_KEY:'',
+  DEADLINE:''
+};
+const SUPS0=[
+  {slug:'maryam',name:'مریم نوری'},
+  {slug:'ozra',name:'عذرا طاهری'},
+  {slug:'morvarid',name:'مروارید شهبازی'},
+  {slug:'malihe',name:'ملیحه بهلول'},
+  {slug:'masoumeh',name:'معصومه میرزایی'},
+  {slug:'mohammad',name:'محمد سیستانی'}
+];
+const DEMO=!CONFIG.SUPABASE_URL;
+
+const TYPES=['قیمت‌محور','احساسی','تحلیلگر','شکاک','منزلت‌طلب','وابسته به تأیید جمع'];
+const FTYPES=['مثبت و پرشور','مثبت و ساکت','مردد','منفی'];
+const METHODS=['تماس تلفنی','پیام متنی','پیام صوتی','هدیه یا نمونه','دیدار حضوری'];
+const DAYS=[0,3,7,14,21,28];
+const YES1='بله، پیشنهاد دادم',YES2='بله، درخواست کردم';
+const KINDS=['analysis','order','loyalty','referral'];
+const KLAB={analysis:'تحلیل مشتری و تیپ',order:'پیشنهاد سفارش',loyalty:'برنامه‌ی ۳۰ روزه',referral:'درخواست معرفی'};
+const KSHORT={analysis:'تحلیل',order:'سفارش',loyalty:'وفاداری',referral:'معرفی'};
+const EXK=['ex_scripts','ex_resist','ex_role','ex_wrap'];
+const REQ=[1,2,3].flatMap(n=>KINDS.map(k=>'cust'+n+'_'+k)).concat(EXK,['report']);
+const T=(id,label,o={})=>Object.assign({id,label,type:'text'},o);
+
+const SCHEMA={
+analysis:{title:'تحلیل مشتری و تیپ',hint:'<b>مدل ۴ لایه:</b> احساس ← دلیل ← مانع ← فرصت.<ul><li>«خوب بود» یعنی هنوز دلیل را نگرفته‌ای؛ یک سؤال دقیق‌تر بپرس.</li><li>بازخورد منفی طلاست؛ مانع را از دلش پیدا کن.</li></ul>',fields:[
+ T('cname','نام مشتری (اسم کوچک یا حروف اول)',{min:2}),
+ T('product','محصولی که مصرف کرده',{min:2}),
+ {id:'ctype',type:'chips',label:'تیپ مشتری',options:TYPES},
+ {id:'typeWhy',type:'area',label:'چرا این تیپ را تشخیص دادی؟ (نشانه‌ی رفتاری یا جمله‌ی مشتری)',min:10},
+ {id:'quote',type:'area',label:'حرف دقیق مشتری درباره‌ی حسش (یک جمله)',min:5},
+ {id:'ftype',type:'chips',label:'نوع بازخورد',options:FTYPES},
+ {id:'l1',type:'area',label:'لایه ۱: احساس (مشتری چه حسی داشت؟)',min:3},
+ {id:'l2',type:'area',label:'لایه ۲: دلیل (چرا؟)',min:3},
+ {id:'l3',type:'area',label:'لایه ۳: مانع (چه چیزی جلوی خرید بعدی است؟)',min:3},
+ {id:'l4',type:'area',label:'لایه ۴: فرصت (از این حرف کجا می‌شود جلو رفت؟)',min:3}]},
+order:{title:'پیشنهاد سفارش',hint:'<b>فرمول ۴ گام:</b> تأیید حس ← عمیق‌کردن ← پل به نیاز بعدی ← دعوت ملایم.<ul><li>جمله‌ی خوب سه جزء دارد: اشاره به حرف مشتری + پیشنهاد مشخص + سؤال ملایم.</li><li>مثال: «اگر موافق باشید این هفته هر دو را با هم ارسال کنم؟»</li></ul>',fields:[
+ {id:'sentence',type:'area',label:'جمله‌ی پیشنهاد سفارش برای این مشتری',min:20},
+ {id:'c1',type:'check',label:'به حرف خود مشتری اشاره دارد'},
+ {id:'c2',type:'check',label:'پیشنهاد مشخص (محصول، زمان یا بسته) دارد'},
+ {id:'c3',type:'check',label:'با یک سؤال ملایم تمام می‌شود'},
+ {id:'given',type:'chips',label:'آیا واقعاً به مشتری پیشنهاد دادی؟',options:[YES1,'هنوز نه']},
+ {id:'result',type:'chips',label:'نتیجه چه شد؟',options:['سفارش گرفتم','مردد یا بعداً','نه'],showIf:d=>d.given===YES1},
+ {id:'note',type:'area',label:'توضیح یا نکته‌ی تماس (اختیاری)',req:false}]},
+loyalty:{title:'برنامه‌ی ۳۰ روزه',hint:'<b>۶ نقطه:</b> روز ۰، ۳، ۷، ۱۴، ۲۱، ۲۸. هر پیام یک هدف دارد؛ سه پیام کمک‌محور به ازای هر پیشنهاد.<ul><li>قیمت‌محور: مزیت اقتصادی بسته</li><li>احساسی: داستان و حس</li><li>تحلیلگر: عدد و دلیل</li><li>شکاک: شواهد و ضمانت</li><li>منزلت‌طلب: پیشنهاد اختصاصی</li><li>وابسته به جمع: تجربه‌ی دیگران</li></ul>هر جا پیگیری را واقعاً انجام دادی، «انجام دادم» را بزن و مدل پیگیری را ثبت کن.',fields:[
+ {id:'d0',type:'area',label:'متن پیام روز ۰ (تشکر و آموزش دقیق مصرف)',min:10},
+ {id:'d3',type:'area',label:'متن پیام روز ۳ (حس اولیه‌تان چطور است؟)',min:10},
+ {id:'tf',type:'area',label:'پیگیری متناسب با تیپ این مشتری چیست؟',min:10},
+ {id:'endDate',type:'date',label:'تاریخ تمام‌شدن محصول (یادآور ۵ روز قبل)'},
+ {id:'cp',type:'cp'}]},
+referral:{title:'درخواست معرفی',hint:'<b>فرمول:</b> تأیید حس + درخواست کوچک و مشخص + سهولت.<ul><li>لحظه‌های طلایی: ذوق‌زدگی، سفارش مجدد، تعریف خود مشتری از محصول.</li><li>سه اسکریپت: نرم، مستقیم، هدیه‌محور.</li></ul>',fields:[
+ {id:'script',type:'chips',label:'کدام اسکریپت را انتخاب کردی؟',options:['نرم','مستقیم','هدیه‌محور']},
+ {id:'moment',type:'chips',label:'در کدام لحظه‌ی طلایی؟',options:['مشتری ذوق‌زده بود','سفارش مجدد داد','خودش از محصول تعریف کرد']},
+ {id:'rewrite',type:'area',label:'جمله‌ی درخواست معرفی با زبان خودت',min:20},
+ {id:'asked',type:'chips',label:'آیا واقعاً درخواست کردی؟',options:[YES2,'هنوز نه']},
+ {id:'level',type:'chips',label:'نتیجه (سطح معرفی)',options:['۰: معرفی نشد','۱: کلامی','۲: اسم یا شماره','۳: تماس سه‌نفره'],showIf:d=>d.asked===YES2},
+ {id:'note',type:'area',label:'توضیح یا مقاومت مشتری و پاسخ شما (اختیاری)',req:false}]},
+ex_scripts:{title:'بازنویسی سه اسکریپت معرفی',hint:'هر اسکریپت را با زبان خودت و به شکلی بنویس که واقعاً به مشتری بگویی.',fields:[
+ {id:'s1',type:'area',label:'اسکریپت ۱ (نرم)',help:'«خوشحالم که این‌قدر راضی هستید. کسی دور و برتان هست که مشکل مشابه داشته باشد؟ اگر اسمشان را بدهید، من خودم با احترام تماس می‌گیرم و می‌گویم از طرف شما.»',min:20},
+ {id:'s2',type:'area',label:'اسکریپت ۲ (مستقیم)',help:'«دوست دارم تجربه‌ی خوب شما به یک نفر دیگر هم کمک کند. یک نفر را می‌شناسید که بتوانم به او مشاوره‌ی رایگان بدهم؟»',min:20},
+ {id:'s3',type:'area',label:'اسکریپت ۳ (هدیه‌محور)',help:'«به‌خاطر اعتمادتان، برای هر دوستی که با معرفی شما شروع کند، یک هدیه‌ی ویژه برای شما و یک مشاوره‌ی اختصاصی برای او در نظر گرفته‌ام.»',min:20}]},
+ex_resist:{title:'پاسخ به سه مقاومت مشتری',hint:'آرام، بدون دفاع و بدون فشار. اول بپذیر، بعد راه کوچک پیشنهاد بده.',fields:[
+ {id:'r1',type:'area',label:'مشتری می‌گوید: «محصول خوب بود، ولی الان بودجه ندارم.»',min:15},
+ {id:'r2',type:'area',label:'مشتری می‌گوید: «مطمئن نیستم دوباره بخرم، باید فکر کنم.»',min:15},
+ {id:'r3',type:'area',label:'مشتری می‌گوید: «کسی را نمی‌شناسم که به این چیزها علاقه داشته باشد.»',min:15}]},
+ex_role:{title:'نقش‌آفرینی دونفره',hint:'با یک هم‌گروهی تماس بگیر یا حضوری تمرین کن. هر نفر یک دقیقه فروشنده و یک دقیقه مشتری.',fields:[
+ T('partner','نام شریک تمرین',{min:2}),
+ {id:'card',type:'chips',label:'کدام کارت مقاومت را بازی کردید؟',options:['کارت ۱: بودجه','کارت ۲: باید فکر کنم','کارت ۳: کسی را نمی‌شناسم']},
+ {id:'p1',type:'check',label:'نقش فروشنده را بازی کردم'},
+ {id:'p2',type:'check',label:'نقش مشتری را بازی کردم'},
+ {id:'learned',type:'area',label:'از این تمرین چه یاد گرفتم؟',min:15},
+ {id:'change',type:'area',label:'دفعه‌ی بعد چه چیزی را عوض می‌کنم؟',min:15}]},
+ex_wrap:{title:'جمع‌بندی شخصی',hint:'سه جمله‌ی کوتاه و صادقانه.',fields:[
+ {id:'w1',type:'area',label:'مفیدترین جمله‌ای که از این دوره یاد گرفتم این بود…',min:10},
+ {id:'w2',type:'area',label:'اولین کاری که این هفته انجام می‌دهم این است…',min:10},
+ {id:'w3',type:'area',label:'مشتری‌ام اگر الان اینجا بود می‌گفت…',min:10}]},
+report:{title:'گزارش نهایی',hint:'اعداد گزارش خودکار از کارت‌هایت محاسبه می‌شود. فقط دو سؤال پایین را جواب بده.',fields:[
+ {id:'eff',type:'area',label:'مؤثرترین جمله‌ای که در این تکلیف استفاده کردم',min:10},
+ {id:'obs',type:'area',label:'بزرگ‌ترین مانعی که با آن روبه‌رو شدم',min:10}]}
+};
+const kindOf=k=>k.replace(/^cust\d_/,'');
+const custOf=k=>{const m=/^cust(\d)_/.exec(k);return m?+m[1]:0};
+const keyTitle=k=>custOf(k)?('مشتری '+custOf(k)+': '+KLAB[kindOf(k)]):SCHEMA[k].title;
+const toEn=s=>String(s==null?'':s).replace(/[۰-۹]/g,c=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(c)).replace(/[٠-٩]/g,c=>'٠١٢٣٤٥٦٧٨٩'.indexOf(c));
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fa=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+const DATE_RE=/^1[34]\d\d\/(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])$/;
+function jToday(){try{const p=new Intl.DateTimeFormat('en-u-ca-persian-nu-latn',{year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());const g=t=>(p.find(x=>x.type===t)||{}).value;return g('year')+'/'+g('month')+'/'+g('day')}catch(e){return ''}}
+
+function filled(f,v){
+  if(f.type==='check')return v===true;
+  if(f.type==='chips'||f.type==='select')return !!v;
+  if(f.type==='date')return DATE_RE.test(v||'');
+  return String(v||'').trim().length>=(f.min||1);
+}
+function fieldsOf(kind,d){return SCHEMA[kind].fields.filter(f=>f.type!=='cp'&&f.req!==false&&(!f.showIf||f.showIf(d||{})))}
+function missing(key,val){const kind=SCHEMA[key]?key:kindOf(key);const d=val||{};return fieldsOf(kind,d).filter(f=>!filled(f,d[f.id])).map(f=>f.label)}
+function complete(key,val){return !!val&&missing(key,val).length===0}
+function hasData(v){if(v==null)return false;if(typeof v==='string')return v.trim().length>0;if(typeof v==='boolean')return v===true;if(Array.isArray(v))return v.some(hasData);if(typeof v==='object')return Object.values(v).some(hasData);return !!v}
+function status(key,data,rev){
+  const r=rev[key];
+  if(r&&r.status==='approved')return 'ok';
+  if(r&&r.status==='revise')return 'fix';
+  if(complete(key,data[key]))return 'done';
+  return hasData(data[key])?'part':'empty';
+}
+const ICON={empty:'○',part:'◐',done:'●',ok:'✓',fix:'!'};
+function stats(data,rev){
+  data=data||{};rev=rev||{};
+  const done=REQ.filter(k=>complete(k,data[k])).length;
+  const appr=REQ.filter(k=>rev[k]&&rev[k].status==='approved').length;
+  const fix=REQ.filter(k=>rev[k]&&rev[k].status==='revise').length;
+  let follow=0,given=0,won=0,asked=0,custs=0;const methods=new Set(),types=new Set();let lvl=-1;
+  for(let n=1;n<=5;n++){
+    const a=data['cust'+n+'_analysis'];if(complete('cust'+n+'_analysis',a)){custs++;types.add(a.ctype)}
+    const o=data['cust'+n+'_order'];if(o&&o.given===YES1){given++;if(o.result==='سفارش گرفتم')won++}
+    const l=data['cust'+n+'_loyalty'];if(l&&l.cp)for(let i=0;i<6;i++){const c=l.cp[i];if(c&&c.done){follow++;if(c.method)methods.add(c.method)}}
+    const r=data['cust'+n+'_referral'];if(r&&r.asked===YES2){asked++;const m=/^([۰-۳])/.exec(r.level||'');if(m)lvl=Math.max(lvl,'۰۱۲۳'.indexOf(m[1]))}
+  }
+  return{done,appr,fix,total:REQ.length,act:Math.round(done/REQ.length*100),mas:Math.round(appr/REQ.length*100),follow,given,won,asked,custs,types:types.size,methods:methods.size,lvl};
+}
+
+/* ---------- backend ---------- */
+const normName=s=>String(s||'').replace(/ي/g,'ی').replace(/ك/g,'ک').replace(/\u200c/g,' ').replace(/\s+/g,' ').trim().toLowerCase();
+const Remote={
+  async rpc(fn,p){
+    const r=await fetch(CONFIG.SUPABASE_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{'Content-Type':'application/json',apikey:CONFIG.SUPABASE_KEY,Authorization:'Bearer '+CONFIG.SUPABASE_KEY},body:JSON.stringify(p||{})});
+    if(!r.ok){const e=new Error('http '+r.status);e.status=r.status;throw e}
+    return r.json();
+  },
+  supervisors(){return this.rpc('mm_list_supervisors')},
+  login(n,p){return this.rpc('mm_member_login',{p_name:n,p_pin:p})},
+  register(n,p,s){return this.rpc('mm_member_register',{p_name:n,p_pin:p,p_sup:s})},
+  save(n,p,k,v){return this.rpc('mm_member_save',{p_name:n,p_pin:p,p_key:k,p_value:v})},
+  supView(s,p){return this.rpc('mm_sup_view',{p_slug:s,p_pin:p})},
+  supComment(s,p,m,k,c){return this.rpc('mm_sup_comment',{p_slug:s,p_pin:p,p_member:m,p_key:k,p_comment:c})},
+  adminView(p){return this.rpc('mm_admin_view',{p_pin:p})},
+  adminReview(p,m,k,st,c){return this.rpc('mm_admin_review',{p_pin:p,p_member:m,p_key:k,p_status:st,p_comment:c})},
+  adminMove(p,m,s){return this.rpc('mm_admin_move',{p_pin:p,p_member:m,p_slug:s})},
+  adminResetPin(p,m,np){return this.rpc('mm_admin_reset_pin',{p_pin:p,p_member:m,p_new:np})},
+  adminSetSupPin(p,s,np){return this.rpc('mm_admin_set_sup_pin',{p_pin:p,p_slug:s,p_new:np})},
+  adminAddSup(p,s,n,np){return this.rpc('mm_admin_add_sup',{p_pin:p,p_slug:s,p_name:n,p_new:np})}
+};
+const Local={
+  db(){try{const d=JSON.parse(localStorage.getItem('nm_demo'));if(d){SUPS0.forEach(s=>{if(!d.sups.find(x=>x.slug===s.slug))d.sups.push({...s,pin:'1111'})});return d}}catch(e){}return{members:[],next:1,sups:SUPS0.map(s=>({...s,pin:'1111'})),admin:'123456'}},
+  put(d){localStorage.setItem('nm_demo',JSON.stringify(d))},
+  pay(m,d){const s=d.sups.find(x=>x.slug===m.sup);return{member:{id:m.id,name:m.name,sup_slug:m.sup,sup_name:s?s.name:''},data:m.data,reviews:m.rev}},
+  async supervisors(){return this.db().sups.map(s=>({slug:s.slug,name:s.name}))},
+  async login(n,p){const d=this.db(),m=d.members.find(x=>normName(x.name)===normName(n));if(!m)return{status:'not_found'};if(m.pin!==p)return{status:'bad_pin'};return{status:'ok',...this.pay(m,d)}},
+  async register(n,p,s){const d=this.db();if(d.members.find(x=>normName(x.name)===normName(n)))return{status:'exists'};const m={id:d.next++,name:n.trim(),pin:p,sup:s,data:{},rev:{},created:new Date().toISOString()};d.members.push(m);this.put(d);return{status:'ok',...this.pay(m,d)}},
+  async save(n,p,k,v){const d=this.db(),m=d.members.find(x=>normName(x.name)===normName(n));if(!m||m.pin!==p)return{status:'bad_pin'};m.data[k]=v;if(m.rev[k]&&m.rev[k].status==='approved')m.rev[k].status=null;this.put(d);return{status:'ok'}},
+  list(d,slug){return d.members.filter(m=>!slug||m.sup===slug).map(m=>({id:m.id,name:m.name,created:m.created,sup_slug:m.sup,data:m.data,reviews:m.rev}))},
+  async supView(s,p){const d=this.db(),x=d.sups.find(y=>y.slug===s);if(!x||x.pin!==p)return{status:'bad_pin'};return{status:'ok',name:x.name,members:this.list(d,s)}},
+  async supComment(s,p,mid,k,c){const d=this.db(),x=d.sups.find(y=>y.slug===s);if(!x||x.pin!==p)return{status:'bad_pin'};const m=d.members.find(y=>y.id===mid&&y.sup===s);if(!m)return{status:'forbidden'};m.rev[k]=Object.assign({},m.rev[k],{sup:c});this.put(d);return{status:'ok'}},
+  async adminView(p){const d=this.db();if(p!==d.admin)return{status:'bad_pin'};return{status:'ok',members:this.list(d),supervisors:d.sups.map(s=>({slug:s.slug,name:s.name}))}},
+  async adminReview(p,mid,k,st,c){const d=this.db();if(p!==d.admin)return{status:'bad_pin'};const m=d.members.find(y=>y.id===mid);m.rev[k]=Object.assign({},m.rev[k],{status:st==='none'?null:st,admin:c});this.put(d);return{status:'ok'}},
+  async adminMove(p,mid,s){const d=this.db();if(p!==d.admin)return{status:'bad_pin'};d.members.find(y=>y.id===mid).sup=s;this.put(d);return{status:'ok'}},
+  async adminResetPin(p,mid,np){const d=this.db();if(p!==d.admin)return{status:'bad_pin'};d.members.find(y=>y.id===mid).pin=np;this.put(d);return{status:'ok'}},
+  async adminSetSupPin(p,s,np){const d=this.db();if(p!==d.admin)return{status:'bad_pin'};d.sups.find(y=>y.slug===s).pin=np;this.put(d);return{status:'ok'}},
+  async adminAddSup(p,s,n,np){const d=this.db();if(p!==d.admin)return{status:'bad_pin'};d.sups.push({slug:s,name:n,pin:np});this.put(d);return{status:'ok'}}
+};
+const api=DEMO?Local:Remote;
+
+/* ---------- state ---------- */
+const S={view:'login',creds:null,member:null,data:{},rev:{},key:null,showN:3,reg:false,sups:SUPS0,timer:null,saving:'',panel:null};
+const Q=new URLSearchParams(location.search);
+const $app=document.getElementById('app');
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),1800)}
+function setArt(on){document.body.classList.toggle('art',on)}
+function getPath(o,p){return p.split('.').reduce((a,k)=>a==null?a:a[k],o)}
+function setPath(o,p,v){const ks=p.split('.');let c=o;ks.slice(0,-1).forEach((k,i)=>{if(c[k]==null)c[k]=/^\d+$/.test(ks[i+1])?[]:{};c=c[k]});c[ks[ks.length-1]]=v}
+function ring(p,col){const c=163.4;return '<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="#fff" stroke-width="7"/><circle cx="32" cy="32" r="26" fill="none" stroke="'+col+'" stroke-width="7" stroke-linecap="round" stroke-dasharray="'+(p*c/100)+' '+c+'" transform="rotate(-90 32 32)"/><text x="32" y="37" text-anchor="middle" font-size="15" font-weight="700" fill="#1d2b30">'+fa(p)+'٪</text></svg>'}
+
+/* ---------- login ---------- */
+function supOpts(sel){return '<option value="">مسئول پیگیری خود را انتخاب کنید</option>'+S.sups.map(s=>'<option value="'+esc(s.slug)+'"'+(s.slug===sel?' selected':'')+'>'+esc(s.name)+'</option>').join('')}
+function renderLogin(msg){
+  setArt(true);S.view='login';
+  const pre=Q.get('r')||'';
+  $app.innerHTML=(DEMO?'<div class="demo" style="position:relative;z-index:3">حالت آزمایشی: داده‌ها فقط روی همین دستگاه ذخیره می‌شود</div>':'')+
+  '<div class="login"><div class="ttl"><small>کارگروه اصفهان</small><h1>ماشین مشتری</h1><div class="sub">سامانه‌ی تمرین و اقدام</div></div>'+
+  '<div class="glass"><label class="lbl">نام و نام خانوادگی</label><input class="inp" id="nm" autocomplete="off" placeholder="مثلاً: سارا احمدی">'+
+  '<label class="lbl">رمز ۴ رقمی (برای خصوصی ماندن اقدامات شما از سایر اعضا)</label><input class="inp ltr" id="pn" type="password" inputmode="numeric" maxlength="4" placeholder="••••" autocomplete="off">'+
+  (S.reg?'<div class="note" style="color:#7a5a10;background:#fff6dd;border-radius:10px;padding:8px 10px">این نام هنوز ثبت نشده است. اگر قبلاً ثبت‌نام کرده‌اید، املای نام را بررسی کنید؛ در غیر این صورت مسئول پیگیری خود را انتخاب کنید.</div><label class="lbl">مسئول پیگیری شما</label><select class="inp" id="sp">'+supOpts(S.preSup||pre)+'</select>':'')+
+  '<div class="err" id="er"></div><button class="btn pri block" id="go" style="margin-top:6px">'+(S.reg?'ثبت‌نام و ورود':'ورود')+'</button>'+
+  '<div class="note">اقدامات شما برای مسئول پیگیری و مدیر قابل مشاهده است؛ رمز فقط مانع دیدن سایر اعضا می‌شود.</div></div>'+
+  '<div class="links"><a id="ls">ورود مسئول پیگیری</a><a id="la">ورود مدیر</a></div><div class="credit">طراح: محمد سیستانی | نسخه ۲ | '+(DEMO?'حالت آزمایشی':'متصل به پایگاه داده')+'</div></div>';
+  if(msg)document.getElementById('er').textContent=msg;
+  document.getElementById('go').onclick=doLogin;
+  document.getElementById('pn').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+  document.getElementById('ls').onclick=()=>renderStaffLogin('sup');
+  document.getElementById('la').onclick=()=>renderStaffLogin('admin');
+  if(S.lastName)document.getElementById('nm').value=S.lastName;if(S.reg&&S.lastPin)document.getElementById('pn').value=S.lastPin;
+}
+async function doLogin(){
+  const name=document.getElementById('nm').value.replace(/\s+/g,' ').trim(),pin=toEn(document.getElementById('pn').value).trim();
+  const er=m=>{document.getElementById('er').textContent=m};
+  if(name.length<2)return er('نام را کامل وارد کنید');
+  if(!/^\d{4}$/.test(pin))return er('رمز باید دقیقاً ۴ رقم باشد');
+  S.lastName=name;S.lastPin=pin;
+  const go=document.getElementById('go');go.disabled=true;
+  try{
+    let res;
+    if(S.reg){const sp=document.getElementById('sp').value;if(!sp){go.disabled=false;return er('مسئول پیگیری را انتخاب کنید')}res=await api.register(name,pin,sp)}
+    else res=await api.login(name,pin);
+    if(res.status==='not_found'){S.reg=true;S.preSup=Q.get('r')||'';go.disabled=false;return renderLogin()}
+    if(res.status==='exists'){S.reg=false;go.disabled=false;return er('این نام قبلاً ثبت شده است؛ رمز را وارد کنید')}
+    if(res.status==='bad_pin'){go.disabled=false;return er('رمز اشتباه است')}
+    if(res.status==='locked'){go.disabled=false;return er('چند بار رمز اشتباه زده شد؛ ۱۰ دقیقه بعد دوباره تلاش کنید')}
+    if(res.status!=='ok'){go.disabled=false;return er('خطا در ورود؛ دوباره تلاش کنید')}
+    S.lastPin='';S.creds={name:res.member.name,pin};localStorage.setItem('nm_sess',JSON.stringify(S.creds));
+    enter(res);
+  }catch(e){go.disabled=false;er(e&&e.status===404?'پایگاه داده آماده نیست: فایل SQL نسخه‌ی جدید را در Supabase اجرا کنید':'اتصال برقرار نشد؛ اینترنت را بررسی کنید')}
+}
+function enter(res){S.member=res.member;S.data=res.data||{};S.rev=res.reviews||{};S.reg=false;renderHome()}
+async function refresh(){try{const r=await api.login(S.creds.name,S.creds.pin);if(r.status==='ok'){S.rev=r.reviews||{};if(S.view==='home')renderHome()}}catch(e){}}
+function logout(){localStorage.removeItem('nm_sess');S.creds=null;S.member=null;S.data={};S.rev={};S.reg=false;renderLogin()}
+
+/* ---------- home ---------- */
+function visCount(){let hi=3;for(let n=4;n<=5;n++)if(KINDS.some(k=>hasData(S.data['cust'+n+'_'+k])))hi=n;return Math.max(3,hi,S.showN)}
+function renderHome(){
+  setArt(false);S.view='home';window.scrollTo(0,0);
+  const st=stats(S.data,S.rev);
+  const vis=visCount();
+  let h=(DEMO?'<div class="demo">حالت آزمایشی</div>':'')+'<div class="top"><div class="r1"><div><h2>'+esc(S.member.name)+'</h2><div class="sm">مسئول پیگیری: '+esc(S.member.sup_name||'')+'</div></div><div class="flex"><button class="btn sm" data-a="refresh">بروزرسانی</button><button class="btn sm" data-a="logout">خروج</button></div></div></div><div class="wrap">';
+  if(CONFIG.DEADLINE)h+='<div class="dl">مهلت انجام تکالیف: '+esc(CONFIG.DEADLINE)+'</div>';
+  h+='<div class="card"><div class="rings"><div class="ringbox">'+ring(st.act,'#0f7c86')+'<div class="t">اقدام</div><div class="n">'+fa(st.done)+' از '+fa(st.total)+' تکلیف کامل</div></div><div class="ringbox">'+ring(st.mas,'#c79a3b')+'<div class="t">تسلط</div><div class="n">'+fa(st.appr)+' تأییدشده'+(st.fix?'، '+fa(st.fix)+' نیازمند اصلاح':'')+'</div></div></div>'+
+  '<div class="stats"><div class="stat">پیگیری‌های انجام‌شده<b>'+fa(st.follow)+'</b></div><div class="stat">مدل‌های پیگیری<b>'+fa(st.methods)+' از ۵</b></div><div class="stat">پیشنهاد سفارش داده‌شده<b>'+fa(st.given)+'</b></div><div class="stat">درخواست معرفی<b>'+fa(st.asked)+'</b></div></div></div>';
+  h+='<div class="sec">الف: کارت‌های ماشین مشتری (پیوست ۱)</div><div class="note" style="margin:-4px 2px 8px">برای حداقل ۳ مشتری، هر ۴ مرحله را کامل کن.</div>';
+  for(let n=1;n<=vis;n++){
+    const a=S.data['cust'+n+'_analysis'];
+    h+='<div class="card"><h3>مشتری '+fa(n)+(a&&a.cname?' ('+esc(a.cname)+')':'')+(n>3?' <span class="badge b-no">اختیاری</span>':'')+'</h3><div class="its">'+KINDS.map((k,i)=>{const key='cust'+n+'_'+k,s=status(key,S.data,S.rev);return '<button class="it st-'+s+'" data-a="open" data-k="'+key+'"><span class="ic">'+ICON[s]+'</span>'+fa(i+1)+'. '+KSHORT[k]+'</button>'}).join('')+'</div></div>';
+  }
+  if(vis<5)h+='<button class="btn block" data-a="more">افزودن مشتری '+fa(vis+1)+' (اختیاری)</button>';
+  h+='<div class="sec">ب: تمرین‌های کارگاه</div><div class="card"><div class="its">'+EXK.map(k=>{const s=status(k,S.data,S.rev);return '<button class="it st-'+s+'" data-a="open" data-k="'+k+'"><span class="ic">'+ICON[s]+'</span>'+SCHEMA[k].title+'</button>'}).join('')+'</div></div>';
+  const rs=status('report',S.data,S.rev);
+  h+='<div class="sec">ج: گزارش نهایی</div><div class="card"><div class="its"><button class="it st-'+rs+'" data-a="open" data-k="report"><span class="ic">'+ICON[rs]+'</span>گزارش نهایی</button></div></div>';
+  h+='<div class="note" style="margin:8px 2px">راهنما: ○ خالی، ◐ ناقص، ● کامل، ✓ تأییدشده، ! نیازمند اصلاح</div><div class="foot">طراح: محمد سیستانی</div></div>';
+  $app.innerHTML=h;
+}
+
+/* ---------- editor ---------- */
+function renderEdit(){
+  setArt(false);S.view='edit';const key=S.key,kind=SCHEMA[key]?key:kindOf(key),sc=SCHEMA[kind];
+  const d=S.data[key]=S.data[key]||{};
+  const r=S.rev[key]||{};
+  let h='<div class="top"><div class="r1"><div><h2>'+esc(keyTitle(key))+'</h2><div class="sm">'+esc(S.member.name)+'</div></div><button class="btn sm" data-a="back">بازگشت</button></div></div><div class="wrap">';
+  if(r.status==='approved')h+='<div class="cm" style="background:#effaf5;border:1px solid #9bd6c2">تأیید شده است. اگر ویرایش کنی، باید دوباره بررسی شود.</div>';
+  if(r.status==='revise')h+='<div class="cm a"><b>نیاز به اصلاح</b></div>';
+  if(r.admin)h+='<div class="cm a"><b>پیام مدیر:</b> '+esc(r.admin)+'</div>';
+  if(r.sup)h+='<div class="cm s2"><b>پیام مسئول پیگیری:</b> '+esc(r.sup)+'</div>';
+  h+='<div class="hint">'+sc.hint+'</div><div class="card">';
+  sc.fields.forEach(f=>{
+    if(f.showIf&&!f.showIf(d))return;
+    if(f.type==='cp'){h+=cpHtml(d);return}
+    h+='<label class="lbl">'+esc(f.label)+(f.req===false?' <span style="color:#999;font-weight:400">(اختیاری)</span>':'')+'</label>';
+    if(f.help)h+='<div class="help">'+esc(f.help)+'</div>';
+    const v=d[f.id];
+    if(f.type==='text')h+='<input class="inp" data-f="'+f.id+'" value="'+esc(v||'')+'">';
+    else if(f.type==='area')h+='<textarea class="inp" data-f="'+f.id+'">'+esc(v||'')+'</textarea>';
+    else if(f.type==='chips')h+='<div class="chips">'+f.options.map(o=>'<span class="chip'+(v===o?' on':'')+'" data-a="chip" data-f="'+f.id+'" data-v="'+esc(o)+'">'+esc(o)+'</span>').join('')+'</div>';
+    else if(f.type==='check')h+='<label class="chk"><input type="checkbox" data-f="'+f.id+'"'+(v===true?' checked':'')+'><span>'+esc(f.label)+'</span></label>';
+    else if(f.type==='date')h+=dateHtml(f.id,v);
+  });
+  h+='</div></div><div class="cmp"><div class="s" id="cs"></div><button class="btn pri sm" data-a="saveNow">ذخیره</button></div>';
+  $app.innerHTML=h;
+  // for checks the label is repeated; remove duplicated lbl above checks
+  $app.querySelectorAll('.chk').forEach(c=>{const p=c.previousElementSibling;if(p&&p.classList.contains('lbl'))p.remove()});
+  updCmp();
+}
+function dateHtml(path,v){return '<div class="row2"><input class="inp ltr" style="letter-spacing:1px" data-f="'+path+'" data-date="1" inputmode="numeric" placeholder="1405/07/15" value="'+esc(v||'')+'"><button class="btn sm" style="flex:none" data-a="today" data-f="'+path+'">امروز</button></div>'}
+function cpHtml(d){
+  d.cp=d.cp||[];let h='<div class="lbl" style="margin-top:16px">پیگیری‌های برنامه‌ی ۳۰ روزه (هر کدام را که واقعاً انجام دادی ثبت کن)</div>';
+  DAYS.forEach((day,i)=>{
+    const c=d.cp[i]||{};
+    h+='<div class="cp'+(c.done?' on':'')+'"><label class="chk" style="padding:2px 0"><input type="checkbox" data-f="cp.'+i+'.done"'+(c.done?' checked':'')+'><span><b>روز '+fa(day)+'</b> انجام دادم</span></label>';
+    if(c.done){
+      h+='<div class="lbl">تاریخ انجام</div>'+dateHtml('cp.'+i+'.date',c.date);
+      h+='<div class="lbl">مدل پیگیری</div><div class="chips">'+METHODS.map(m=>'<span class="chip'+(c.method===m?' on':'')+'" data-a="chip" data-f="cp.'+i+'.method" data-v="'+esc(m)+'">'+m+'</span>').join('')+'</div>';
+      h+='<div class="lbl">خلاصه‌ی پیام یا واکنش مشتری</div><input class="inp" data-f="cp.'+i+'.note" value="'+esc(c.note||'')+'">';
+    }
+    h+='</div>';
+  });
+  return h;
+}
+function updCmp(){
+  const e=document.getElementById('cs');if(!e)return;
+  const m=missing(S.key,S.data[S.key]);
+  e.className='s '+(m.length?'no':'ok');
+  e.textContent=(m.length?'ناقص: '+fa(m.length)+' مورد باقی مانده':'کامل است')+(S.saving?' | '+S.saving:'');
+}
+function queueSave(){
+  S.saving='در حال ذخیره…';updCmp();
+  clearTimeout(S.timer);S.timer=setTimeout(saveNow,800);
+}
+async function saveNow(){
+  clearTimeout(S.timer);const key=S.key;if(!key)return;
+  try{
+    const r=await api.save(S.creds.name,S.creds.pin,key,S.data[key]||{});
+    if(r.status==='ok'){S.saving='ذخیره شد';if(S.rev[key]&&S.rev[key].status==='approved')S.rev[key].status=null}
+    else S.saving='خطا در ذخیره';
+  }catch(e){S.saving='ذخیره نشد؛ اینترنت را بررسی کنید'}
+  updCmp();
+}
+
+/* ---------- staff ---------- */
+function renderStaffLogin(role,msg){
+  setArt(true);S.view='staff';
+  const pre=Q.get('s')||'';
+  $app.innerHTML='<div class="login"><div class="ttl"><small>کارگروه اصفهان</small><h1>'+(role==='admin'?'ورود مدیر':'ورود مسئول پیگیری')+'</h1></div><div class="glass">'+
+  (role==='sup'?'<label class="lbl">نام شما</label><select class="inp" id="ss">'+supOpts(pre)+'</select>':'')+
+  '<label class="lbl">رمز</label><input class="inp ltr" id="sp2" type="password" inputmode="numeric" autocomplete="off" placeholder="••••">'+
+  '<div class="err" id="er">'+esc(msg||'')+'</div><button class="btn pri block" id="go2" style="margin-top:6px">ورود</button>'+(DEMO?'<div class="note">حالت آزمایشی: رمز مدیر ۱۲۳۴۵۶ و رمز مسئولین ۱۱۱۱ است.</div>':'')+'</div><div class="links"><a id="bk">بازگشت</a></div></div>';
+  document.getElementById('bk').onclick=()=>renderLogin();
+  const go=async()=>{
+    const pin=toEn(document.getElementById('sp2').value).trim(),er=m=>document.getElementById('er').textContent=m;
+    try{
+      if(role==='admin'){const r=await api.adminView(pin);if(r.status!=='ok')return er('رمز اشتباه است');S.panel={role:'admin',pin,members:r.members,sups:r.supervisors,tab:'sum',f:'',m:null}}
+      else{const sl=document.getElementById('ss').value;if(!sl)return er('نام خود را انتخاب کنید');const r=await api.supView(sl,pin);if(r.status!=='ok')return er('رمز اشتباه است');S.panel={role:'sup',pin,slug:sl,name:r.name,members:r.members,sups:[],tab:'sum',f:'',m:null}}
+      renderPanel();
+    }catch(e){er(e&&e.status===404?'پایگاه داده آماده نیست: فایل SQL نسخه‌ی جدید را در Supabase اجرا کنید':'اتصال برقرار نشد؛ آدرس، کلید و اینترنت را بررسی کنید')}
+  };
+  document.getElementById('go2').onclick=go;
+  document.getElementById('sp2').addEventListener('keydown',e=>{if(e.key==='Enter')go()});
+}
+async function reloadPanel(){
+  const P=S.panel;
+  const r=P.role==='admin'?await api.adminView(P.pin):await api.supView(P.slug,P.pin);
+  if(r.status==='ok'){P.members=r.members;if(r.supervisors)P.sups=r.supervisors}
+}
+function supName(slug){const P=S.panel;const s=(P.sups||[]).concat(S.sups).find(x=>x.slug===slug);return s?s.name:''}
+function renderPanel(){
+  setArt(false);S.view='panel';const P=S.panel;
+  if(P.m!=null)return renderReview();
+  const rows=P.members.filter(m=>!P.f||m.sup_slug===P.f).map(m=>({m,st:stats(m.data,m.reviews)}));
+  let h='<div class="top"><div class="r1"><div><h2>'+(P.role==='admin'?'پنل مدیر':'پنل '+esc(P.name))+'</h2><div class="sm">'+fa(rows.length)+' نفر</div></div><div class="flex"><button class="btn sm" data-a="preload">بروزرسانی</button><button class="btn sm" data-a="pexit">خروج</button></div></div></div><div class="wrap">';
+  if(P.role==='admin')h+='<div class="tabs"><button class="btn'+(P.tab==='sum'?' on':'')+'" data-a="ptab" data-v="sum">خلاصه‌ی نفرات</button><button class="btn'+(P.tab==='sup'?' on':'')+'" data-a="ptab" data-v="sup">مسئولین و لینک‌ها</button></div>';
+  if(P.tab==='sup'&&P.role==='admin'){h+=supTab()}
+  else{
+    const tot=rows.length,avgA=tot?Math.round(rows.reduce((a,r)=>a+r.st.act,0)/tot):0,avgM=tot?Math.round(rows.reduce((a,r)=>a+r.st.mas,0)/tot):0;
+    h+='<div class="stats" style="margin:0 0 10px"><div class="stat">میانگین اقدام<b>'+fa(avgA)+'٪</b></div><div class="stat">میانگین تسلط<b>'+fa(avgM)+'٪</b></div></div>';
+    if(P.role==='admin')h+='<div class="row2" style="margin-bottom:10px"><select class="inp" data-a="pf">'+'<option value="">همه‌ی مسئولین</option>'+P.sups.map(s=>'<option value="'+esc(s.slug)+'"'+(P.f===s.slug?' selected':'')+'>'+esc(s.name)+'</option>').join('')+'</select><button class="btn sm" style="flex:none" data-a="csv">خروجی Excel</button></div>';
+    h+='<div class="scroll"><table class="tbl"><tr><th>نام</th>'+(P.role==='admin'?'<th>مسئول</th>':'')+'<th>اقدام</th><th>تسلط</th><th>پیگیری</th><th>مدل‌ها</th><th>سفارش</th><th>معرفی</th></tr>'+
+    rows.map(r=>'<tr class="rw" data-a="pm" data-id="'+r.m.id+'"><td>'+esc(r.m.name)+'</td>'+(P.role==='admin'?'<td>'+esc(supName(r.m.sup_slug))+'</td>':'')+'<td><div class="bar"><i style="width:'+r.st.act+'%"></i></div>'+fa(r.st.act)+'٪</td><td>'+fa(r.st.mas)+'٪'+(r.st.fix?' <span class="badge b-fix">'+fa(r.st.fix)+'!</span>':'')+'</td><td>'+fa(r.st.follow)+'</td><td>'+fa(r.st.methods)+'</td><td>'+fa(r.st.given)+'/'+fa(r.st.won)+'</td><td>'+fa(r.st.asked)+'</td></tr>').join('')+'</table></div>';
+    if(!rows.length)h+='<div class="note" style="text-align:center;margin-top:16px">هنوز کسی ثبت‌نام نکرده است.</div>';
+    h+='<div class="note">سفارش: پیشنهاد داده‌شده / سفارش‌گرفته‌شده. روی هر نفر بزن تا جزئیات و بررسی را ببینی.</div>';
+  }
+  h+='<div class="foot">طراح: محمد سیستانی</div></div>';
+  $app.innerHTML=h;
+}
+function supTab(){
+  const P=S.panel,base=location.origin+location.pathname;
+  let h='<div class="card"><h3>لینک‌های اختصاصی</h3><div class="note" style="margin:0 0 8px">لینک عضو را مسئول در گروه تیم خودش بگذارد تا نامش خودکار انتخاب شود. لینک پنل فقط برای خود مسئول است (با رمز).</div>';
+  P.sups.forEach(s=>{
+    const cnt=P.members.filter(m=>m.sup_slug===s.slug).length;
+    h+='<div class="kv"><b>'+esc(s.name)+'</b> ('+fa(cnt)+' نفر)<div class="flex" style="margin-top:4px"><button class="btn sm" data-a="copy" data-u="'+esc(base+'?r='+s.slug)+'">کپی لینک اعضا</button><button class="btn sm" data-a="copy" data-u="'+esc(base+'?s='+s.slug)+'">کپی لینک پنل</button><button class="btn sm" data-a="supin" data-s="'+esc(s.slug)+'">تعیین رمز</button></div></div>';
+  });
+  h+='<div class="kv"><b>لینک عمومی (انتخاب مسئول از منو)</b><div class="flex" style="margin-top:4px"><button class="btn sm" data-a="copy" data-u="'+esc(base)+'">کپی لینک</button></div></div></div>';
+  h+='<div class="card"><h3>افزودن مسئول جدید</h3><label class="lbl">نام</label><input class="inp" id="an"><label class="lbl">شناسه‌ی لینک (انگلیسی، بدون فاصله)</label><input class="inp" id="as" style="direction:ltr;text-align:left"><label class="lbl">رمز اولیه</label><input class="inp ltr" id="ap" inputmode="numeric"><button class="btn pri block" data-a="addsup">افزودن</button></div>';
+  return h;
+}
+function renderReview(){
+  const P=S.panel,m=P.members.find(x=>x.id===P.m);if(!m){P.m=null;return renderPanel()}
+  const adm=P.role==='admin';const st=stats(m.data,m.reviews);
+  const keys=REQ.slice();for(let n=4;n<=5;n++)KINDS.forEach(k=>{const kk='cust'+n+'_'+k;if(hasData(m.data[kk]))keys.push(kk)});
+  let h='<div class="top"><div class="r1"><div><h2>'+esc(m.name)+'</h2><div class="sm">اقدام '+fa(st.act)+'٪ | تسلط '+fa(st.mas)+'٪ | مسئول: '+esc(supName(m.sup_slug))+'</div></div><button class="btn sm" data-a="pback">بازگشت</button></div></div><div class="wrap">';
+  if(adm)h+='<div class="card"><div class="row2"><select class="inp" id="mv">'+P.sups.map(s=>'<option value="'+esc(s.slug)+'"'+(s.slug===m.sup_slug?' selected':'')+'>'+esc(s.name)+'</option>').join('')+'</select><button class="btn sm" style="flex:none" data-a="move">انتقال به مسئول</button></div><div class="flex" style="margin-top:8px"><button class="btn sm bad" data-a="rpin">تعیین رمز جدید برای عضو</button></div></div>';
+  h+='<div class="card"><div class="stats" style="margin:0"><div class="stat">پیگیری انجام‌شده<b>'+fa(st.follow)+'</b></div><div class="stat">مدل‌های پیگیری<b>'+fa(st.methods)+' از ۵</b></div><div class="stat">سفارش داده / گرفته<b>'+fa(st.given)+' / '+fa(st.won)+'</b></div><div class="stat">تیپ‌های شناسایی‌شده<b>'+fa(st.types)+' از ۶</b></div></div></div>';
+  keys.forEach(k=>{
+    const val=m.data[k],r=m.reviews[k]||{},s=status(k,m.data,m.reviews),cm=complete(k,val);
+    const badge={ok:'<span class="badge b-ok">تأیید شده</span>',fix:'<span class="badge b-fix">نیاز به اصلاح</span>',done:'<span class="badge b-done">کامل</span>',part:'<span class="badge b-no">ناقص</span>',empty:'<span class="badge b-no">ثبت نشده</span>'}[s];
+    h+='<div class="card"><h3>'+esc(keyTitle(k))+' '+badge+'</h3>'+(hasData(val)?valueHtml(k,val):'<div class="note">چیزی ثبت نشده است.</div>');
+    if(r.sup&&adm)h+='<div class="cm s2" style="margin-top:8px"><b>پیام مسئول:</b> '+esc(r.sup)+'</div>';
+    if(r.admin&&!adm)h+='<div class="cm a" style="margin-top:8px"><b>پیام مدیر:</b> '+esc(r.admin)+'</div>';
+    h+='<label class="lbl">'+(adm?'پیام مدیر به عضو':'پیام شما به عضو')+'</label><textarea class="inp" style="min-height:56px" data-c="'+k+'">'+esc(adm?r.admin||'':r.sup||'')+'</textarea><div class="flex" style="margin-top:8px">';
+    if(adm){
+      h+='<button class="btn sm pri" data-a="rv" data-k="'+k+'" data-s="approved"'+(cm?'':' style="opacity:.45"')+'>✓ تأیید</button><button class="btn sm bad" data-a="rv" data-k="'+k+'" data-s="revise">! نیاز به اصلاح</button><button class="btn sm" data-a="rv" data-k="'+k+'" data-s="none">پاک‌کردن وضعیت</button>';
+    }else h+='<button class="btn sm pri" data-a="sc" data-k="'+k+'">ثبت پیام</button>';
+    h+='</div></div>';
+  });
+  $app.innerHTML=h+'</div>';
+}
+function valueHtml(key,val){
+  const kind=SCHEMA[key]?key:kindOf(key),sc=SCHEMA[kind];let h='';
+  sc.fields.forEach(f=>{
+    if(f.showIf&&!f.showIf(val))return;
+    if(f.type==='cp'){
+      (val.cp||[]).forEach((c,i)=>{if(c&&c.done)h+='<div class="kv"><b>روز '+fa(DAYS[i])+'</b>: '+esc(c.method||'')+' | '+esc(c.date||'')+(c.note?' | '+esc(c.note):'')+'</div>'});return}
+    const v=val[f.id];
+    h+='<div class="kv"><b>'+esc(f.type==='check'?f.label:f.label.split(' (')[0])+':</b> '+(f.type==='check'?(v?'✓':'✗'):esc(v||'—'))+'</div>';
+  });
+  return h;
+}
+function csv(){
+  const P=S.panel;
+  const rows=[['نام','مسئول','اقدام٪','تسلط٪','مشتری تحلیل‌شده','پیگیری انجام‌شده','مدل‌های پیگیری','سفارش پیشنهادشده','سفارش گرفته‌شده','درخواست معرفی','تأییدشده','نیاز به اصلاح']];
+  P.members.forEach(m=>{const s=stats(m.data,m.reviews);rows.push([m.name,supName(m.sup_slug),s.act,s.mas,s.custs,s.follow,s.methods,s.given,s.won,s.asked,s.appr,s.fix])});
+  const t='\ufeff'+rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/csv;charset=utf-8'}));a.download='machine-moshtari-report.csv';document.body.appendChild(a);a.click();a.remove();
+}
+function copyText(t){
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(()=>toast('لینک کپی شد'),()=>prompt('لینک را کپی کنید',t));
+  else prompt('لینک را کپی کنید',t);
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click',async e=>{
+  const el=e.target.closest('[data-a]');if(!el)return;
+  const a=el.dataset.a,P=S.panel;
+  if(a==='logout')return logout();
+  if(a==='refresh'){await refresh();return toast('بروزرسانی شد')}
+  if(a==='more'){S.showN=Math.min(5,visCount()+1);return renderHome()}
+  if(a==='open'){S.key=el.dataset.k;S.saving='';return renderEdit()}
+  if(a==='back'){await saveNow();S.key=null;return renderHome()}
+  if(a==='saveNow'){await saveNow();toast(S.saving);return}
+  if(a==='chip'){const d=S.data[S.key];setPath(d,el.dataset.f,el.dataset.v);const y=window.scrollY;renderEdit();window.scrollTo(0,y);queueSave();return}
+  if(a==='today'){const d=S.data[S.key];setPath(d,el.dataset.f,jToday());const y=window.scrollY;renderEdit();window.scrollTo(0,y);queueSave();return}
+  if(a==='pexit'){S.panel=null;return renderLogin()}
+  if(a==='preload'){await reloadPanel();renderPanel();return toast('بروزرسانی شد')}
+  if(a==='ptab'){P.tab=el.dataset.v;return renderPanel()}
+  if(a==='pm'){P.m=+el.dataset.id;return renderPanel()}
+  if(a==='pback'){P.m=null;return renderPanel()}
+  if(a==='csv')return csv();
+  if(a==='copy')return copyText(el.dataset.u);
+  if(a==='supin'){const v=toEn(prompt('رمز جدید این مسئول را وارد کنید (حداقل ۴ رقم)')||'').trim();if(v.length<4)return;const r=await api.adminSetSupPin(P.pin,el.dataset.s,v);return toast(r.status==='ok'?'رمز تغییر کرد':'ناموفق')}
+  if(a==='addsup'){const n=document.getElementById('an').value.trim(),s=document.getElementById('as').value.trim().toLowerCase(),p=toEn(document.getElementById('ap').value).trim();if(!n||!/^[a-z0-9-]{2,30}$/.test(s)||p.length<4)return toast('نام، شناسه‌ی انگلیسی و رمز ۴ رقمی را کامل کنید');const r=await api.adminAddSup(P.pin,s,n,p);if(r.status!=='ok')return toast('ناموفق (شناسه تکراری؟)');await reloadPanel();S.sups=await api.supervisors();return renderPanel()}
+  if(a==='move'){const r=await api.adminMove(P.pin,P.m,document.getElementById('mv').value);if(r.status==='ok'){await reloadPanel();toast('انتقال انجام شد');renderPanel()}return}
+  if(a==='rpin'){const v=toEn(prompt('رمز ۴ رقمی جدید عضو')||'').trim();if(!/^\d{4}$/.test(v))return;const r=await api.adminResetPin(P.pin,P.m,v);return toast(r.status==='ok'?'رمز تغییر کرد':'ناموفق')}
+  if(a==='rv'){
+    const k=el.dataset.k,m=P.members.find(x=>x.id===P.m),c=(document.querySelector('[data-c="'+k+'"]')||{}).value||'';
+    if(el.dataset.s==='approved'&&!complete(k,m.data[k]))return toast('این مورد هنوز کامل نیست و قابل تأیید نیست');
+    const r=await api.adminReview(P.pin,P.m,k,el.dataset.s,c);if(r.status!=='ok')return toast('ثبت نشد');
+    await reloadPanel();const y=window.scrollY;renderPanel();window.scrollTo(0,y);return toast('ثبت شد');
+  }
+  if(a==='sc'){
+    const k=el.dataset.k,c=(document.querySelector('[data-c="'+k+'"]')||{}).value||'';
+    const r=await api.supComment(P.slug,P.pin,P.m,k,c);if(r.status!=='ok')return toast('ثبت نشد');
+    await reloadPanel();const y=window.scrollY;renderPanel();window.scrollTo(0,y);return toast('پیام ثبت شد');
+  }
+});
+document.addEventListener('input',e=>{
+  const el=e.target;
+  if(S.view!=='edit'||!el.dataset.f)return;
+  const d=S.data[S.key];
+  if(el.type==='checkbox'){setPath(d,el.dataset.f,el.checked);const y=window.scrollY;renderEdit();window.scrollTo(0,y)}
+  else setPath(d,el.dataset.f,el.value);
+  queueSave();updCmp();
+});
+document.addEventListener('focusout',e=>{
+  const el=e.target;
+  if(el.dataset&&el.dataset.date){let v=toEn(el.value).replace(/[-.]/g,'/').trim();el.value=v;setPath(S.data[S.key],el.dataset.f,v);queueSave();updCmp()}
+});
+document.addEventListener('change',e=>{const el=e.target;if(el.dataset&&el.dataset.a==='pf'){S.panel.f=el.value;renderPanel()}});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&S.view==='home'&&S.creds)refresh()});
+
+/* ---------- boot ---------- */
+(async function(){
+  try{S.sups=await api.supervisors();if(!S.sups||!S.sups.length)S.sups=SUPS0}catch(e){S.sups=SUPS0}
+  if(Q.has('admin'))return renderStaffLogin('admin');
+  if(Q.get('s'))return renderStaffLogin('sup');
+  try{
+    const s=JSON.parse(localStorage.getItem('nm_sess')||'null');
+    if(s&&s.name&&s.pin){const r=await api.login(s.name,s.pin);if(r.status==='ok'){S.creds=s;return enter(r)}}
+  }catch(e){}
+  renderLogin();
+})();
+</script>
+</body>
+</html>
