@@ -79,6 +79,7 @@ textarea.inp{min-height:84px;resize:vertical}
 .cmp{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--line);padding:10px 14px;display:flex;gap:10px;align-items:center;justify-content:space-between;z-index:4}
 .cmp .s{font-size:13px;font-weight:700}
 .s.ok{color:var(--ok)}.s.no{color:var(--warn)}
+#ms{font-size:12px;color:#8a5a00;line-height:1.5}
 .cm{border-radius:10px;padding:8px 12px;font-size:13.5px;margin-bottom:8px}
 .cm.a{background:#fdf0ee;border:1px solid #f1c3bc}.cm.s2{background:#eef5ff;border:1px solid #c5d9f5}
 .badge{display:inline-block;border-radius:10px;padding:1px 9px;font-size:12px;font-weight:700}
@@ -278,9 +279,9 @@ analysis:{title:'تحلیل مشتری و تیپ',hint:'<b>مدل ۴ لایه:</
  {id:'l4',type:'area',label:'لایه ۴: فرصت (از این حرف کجا می‌شود جلو رفت؟)',min:3}]},
 order:{title:'پیشنهاد سفارش',hint:'<b>فرمول ۴ گام:</b> تأیید حس ← عمیق‌کردن ← پل به نیاز بعدی ← دعوت ملایم.<ul><li>جمله‌ی خوب سه جزء دارد: اشاره به حرف مشتری + پیشنهاد مشخص + سؤال ملایم.</li><li>مثال: «اگر موافق باشید این هفته هر دو را با هم ارسال کنم؟»</li></ul>',fields:[
  {id:'sentence',type:'area',label:'جمله‌ی پیشنهاد سفارش برای این مشتری',min:20},
- {id:'c1',type:'check',label:'به حرف خود مشتری اشاره دارد'},
- {id:'c2',type:'check',label:'پیشنهاد مشخص (محصول، زمان یا بسته) دارد'},
- {id:'c3',type:'check',label:'با یک سؤال ملایم تمام می‌شود'},
+ {id:'c1',type:'check',req:false,label:'به حرف خود مشتری اشاره دارد'},
+ {id:'c2',type:'check',req:false,label:'پیشنهاد مشخص (محصول، زمان یا بسته) دارد'},
+ {id:'c3',type:'check',req:false,label:'با یک سؤال ملایم تمام می‌شود'},
  {id:'given',type:'chips',label:'آیا واقعاً به مشتری پیشنهاد دادی؟',options:[YES1,'هنوز نه']},
  {id:'result',type:'chips',label:'نتیجه چه شد؟',options:['سفارش گرفتم','مردد یا بعداً','نه'],showIf:d=>d.given===YES1},
  {id:'note',type:'area',label:'توضیح یا نکته‌ی تماس (اختیاری)',req:false}]},
@@ -327,12 +328,23 @@ const toEn=s=>String(s==null?'':s).replace(/[۰-۹]/g,c=>'۰۱۲۳۴۵۶۷۸۹'.
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fa=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
 const DATE_RE=/^1[34]\d\d\/(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])$/;
+function normDate(v){
+  const p=toEn(v).split(/[^0-9]+/).filter(Boolean);
+  if(p.length!==3)return '';
+  let y,m,d;
+  if(p[0].length===4){y=p[0];m=p[1];d=p[2]}
+  else if(p[2].length===4){y=p[2];m=p[1];d=p[0]}
+  else return '';
+  y=+y;m=+m;d=+d;
+  if(y<1300||y>1500||m<1||m>12||d<1||d>31)return '';
+  return y+'/'+String(m).padStart(2,'0')+'/'+String(d).padStart(2,'0');
+}
 function jToday(){try{const p=new Intl.DateTimeFormat('en-u-ca-persian-nu-latn',{year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());const g=t=>(p.find(x=>x.type===t)||{}).value;return g('year')+'/'+g('month')+'/'+g('day')}catch(e){return ''}}
 
 function filled(f,v){
   if(f.type==='check')return v===true;
   if(f.type==='chips'||f.type==='select')return !!v;
-  if(f.type==='date')return DATE_RE.test(v||'');
+  if(f.type==='date')return normDate(v||'')!=='';
   return String(v||'').trim().length>=(f.min||1);
 }
 function fieldsOf(kind,d){return SCHEMA[kind].fields.filter(f=>f.type!=='cp'&&f.req!==false&&(!f.showIf||f.showIf(d||{})))}
@@ -503,7 +515,7 @@ function renderEdit(){
     else if(f.type==='check')h+='<label class="chk"><input type="checkbox" data-f="'+f.id+'"'+(v===true?' checked':'')+'><span>'+esc(f.label)+'</span></label>';
     else if(f.type==='date')h+=dateHtml(f.id,v);
   });
-  h+='</div></div><div class="cmp"><div class="s" id="cs"></div><button class="btn pri sm" data-a="saveNow">ذخیره</button></div>';
+  h+='</div></div><div class="cmp"><div style="flex:1"><div class="s" id="cs"></div><div id="ms"></div></div><button class="btn pri sm" data-a="saveNow">ذخیره</button></div>';
   $app.innerHTML=h;
   // for checks the label is repeated; remove duplicated lbl above checks
   $app.querySelectorAll('.chk').forEach(c=>{const p=c.previousElementSibling;if(p&&p.classList.contains('lbl'))p.remove()});
@@ -529,6 +541,7 @@ function updCmp(){
   const m=missing(S.key,S.data[S.key]);
   e.className='s '+(m.length?'no':'ok');
   e.textContent=(m.length?'ناقص: '+fa(m.length)+' مورد باقی مانده':'کامل است')+(S.saving?' | '+S.saving:'');
+  const ms=document.getElementById('ms');if(ms)ms.textContent=m.length?'باقی‌مانده: '+m.map(x=>x.split(' (')[0]).join('، '):'';
 }
 function queueSave(){
   S.saving='در حال ذخیره…';updCmp();
@@ -611,6 +624,7 @@ function renderReview(){
     const val=m.data[k],r=m.reviews[k]||{},s=status(k,m.data,m.reviews),cm=complete(k,val);
     const badge={ok:'<span class="badge b-ok">تأیید شده</span>',fix:'<span class="badge b-fix">نیاز به اصلاح</span>',done:'<span class="badge b-done">کامل</span>',part:'<span class="badge b-no">ناقص</span>',empty:'<span class="badge b-no">ثبت نشده</span>'}[s];
     h+='<div class="card"><h3>'+esc(keyTitle(k))+' '+badge+'</h3>'+(hasData(val)?valueHtml(k,val):'<div class="note">چیزی ثبت نشده است.</div>');
+    if(!cm&&hasData(val))h+='<div class="cm a" style="margin-top:8px"><b>برای کامل‌شدن باقی مانده:</b> '+esc(missing(k,val).map(x=>x.split(' (')[0]).join('، '))+'</div>';
     if(r.sup&&adm)h+='<div class="cm s2" style="margin-top:8px"><b>پیام مسئول:</b> '+esc(r.sup)+'</div>';
     if(r.admin&&!adm)h+='<div class="cm a" style="margin-top:8px"><b>پیام مدیر:</b> '+esc(r.admin)+'</div>';
     h+='<label class="lbl">'+(adm?'پیام مدیر به عضو':'پیام شما به عضو')+'</label><textarea class="inp" style="min-height:56px" data-c="'+k+'">'+esc(adm?r.admin||'':r.sup||'')+'</textarea><div class="flex" style="margin-top:8px">';
@@ -689,7 +703,7 @@ document.addEventListener('input',e=>{
 });
 document.addEventListener('focusout',e=>{
   const el=e.target;
-  if(el.dataset&&el.dataset.date){let v=toEn(el.value).replace(/[-.]/g,'/').trim();el.value=v;setPath(S.data[S.key],el.dataset.f,v);queueSave();updCmp()}
+  if(el.dataset&&el.dataset.date){let v=normDate(el.value)||toEn(el.value).trim();el.value=v;setPath(S.data[S.key],el.dataset.f,v);queueSave();updCmp()}
 });
 document.addEventListener('change',e=>{const el=e.target;if(el.dataset&&el.dataset.a==='pf'){S.panel.f=el.value;renderPanel()}});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&S.view==='home'&&S.creds)refresh()});
